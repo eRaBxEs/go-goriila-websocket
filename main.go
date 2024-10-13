@@ -45,7 +45,12 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func homePage(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "./index.html")
+}
+
 func main() {
+	http.HandleFunc("/", homePage)
 	http.HandleFunc("/ws", handleWebSocket)
 	fmt.Println("Websocket server is running on :8080/ws")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
